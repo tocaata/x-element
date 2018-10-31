@@ -2,30 +2,15 @@
   <div class="dropdown is-active">
     <div class="dropdown-trigger">
       <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-        <span>Dropdown button</span>
+        <span>{{value}}</span>
         <span class="icon is-small">
         <i class="fas fa-angle-down" aria-hidden="true"></i>
       </span>
       </button>
     </div>
     <div class="dropdown-menu" id="dropdown-menu" role="menu">
-      <div class="dropdown-content">
-        <a href="#" class="dropdown-item">
-          Dropdown item
-        </a>
-        <a class="dropdown-item">
-          Other dropdown item
-        </a>
-        <a href="#" class="dropdown-item is-active">
-          Active dropdown item
-        </a>
-        <a href="#" class="dropdown-item">
-          Other dropdown item
-        </a>
-        <hr class="dropdown-divider">
-        <a href="#" class="dropdown-item">
-          With a divider
-        </a>
+      <div class="dropdown-content" @input="handleClick">
+        <slot :onclick="(event) => { handleClick(event); }"></slot>
       </div>
     </div>
   </div>
@@ -33,7 +18,25 @@
 
 <script>
   export default {
-    name: 'XSelect'
+    name: 'XSelect',
+    props: {
+      value: [String, Number, undefined],
+      abc: [String, undefined]
+    },
+    data() {
+      return {
+      };
+    },
+    mounted() {
+    },
+    methods: {
+      handleClick(event) {
+        // console.log('event', event);
+        console.log(event);
+        // debugger
+        this.$emit('input', event.target.value);
+      }
+    }
   }
 </script>
 
