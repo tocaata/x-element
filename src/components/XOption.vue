@@ -1,5 +1,5 @@
 <template>
-  <li class="dropdown-item" ref="the" :value="value" @click="handleClick">
+  <li class="dropdown-item" :class="{ 'option-highlight': $parent.innerValue === value }" ref="the" :value="value" @click="handleClick">
     <span>{{label}}</span>
   </li>
 </template>
@@ -14,12 +14,9 @@
     },
     methods: {
       handleClick(event) {
-        // event.preventDefault();
-        // event.stopPropagation();
-        this.$parent.$emit('input', this.value);
-        console.log(this.$parent);
-        // this.$emit('click', this.value);
-        // event.target = this.$refs['the'];
+        event.preventDefault();
+        event.stopPropagation();
+        this.$parent.$emit('click', this.value);
       }
     }
   }
@@ -29,6 +26,10 @@
   .dropdown-item:hover {
     background-color: #f5f5f5;
     color: #0a0a0a;
+  }
+
+  .option-highlight {
+    color: #409eff;
   }
 
   li.dropdown-item {
