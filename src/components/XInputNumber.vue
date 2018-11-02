@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-centered">
-    <div class="field has-addons">
+    <div class="field has-addons" data-container>
       <div class="control">
         <a class="button is-info" @click="minus" :disabled="disabled">
           -
@@ -73,5 +73,7 @@
 </script>
 
 <style scoped>
-
+  div[data-container] {
+    width: 10rem;
+  }
 </style>

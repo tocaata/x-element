@@ -1,12 +1,19 @@
 <template>
-  <div class="dropdown" :class="{ 'is-active': active }">
+  <div class="dropdown" :class="{ 'is-active': active, 'multiple-select': multiple }">
     <div class="dropdown-trigger">
-      <button class="button" aria-haspopup="true" @click="handleButtonClick" @mouseover="innerValue ? (icon = 'delete') : ''" @mouseout="icon = 'down'">
-        <span>{{innerValue}}</span>
-        <span class="icon is-small" @click.stop="handleDelete" icon>
-          <i class="fas" :class="{ 'fa-angle-down': icon === 'down', 'fa-times-circle': icon === 'delete'}" aria-hidden="true"></i>
+      <p class="control has-icons-right" ref="control">
+        <input ref="input" class="input"
+               type="text"
+               :value="innerValue"
+               :placeholder="placeholder"
+               @click.stop="handleInputClick"
+               readonly
+        />
+        <span class="icon is-small is-right" @click.stop="handleDelete">
+          <i v-if="icon === 'down'" class="fas fa-angle-down"></i>
+          <i v-else class="fas fa-times-circle" data-icon></i>
         </span>
-      </button>
+      </p>
     </div>
     <div class="dropdown-menu" role="menu">
       <div class="dropdown-content">
@@ -20,7 +27,10 @@
   export default {
     name: 'XSelect',
     props: {
-      value: [String, Number]
+      value: [String, Number, Array],
+      clearable: Boolean,
+      placeholder: String,
+      multiple: Boolean
     },
     data() {
       return {
@@ -31,9 +41,14 @@
     },
     mounted() {
       this.$on('click', (value) => this.handleOptionClick(value));
+      if (this.clearable) {
+        this.$refs.control.addEventListener('mouseover', (e) => { this.innerValue && (this.icon = 'delete'); });
+        this.$refs.control.addEventListener('mouseout', (e) => { this.icon = 'down'; });
+      }
+      document.addEventListener('click', () => { this.active = false; });
     },
     methods: {
-      handleButtonClick(event) {
+      handleInputClick(event) {
         this.active = !this.active;
       },
       handleDelete(e) {
@@ -43,22 +58,34 @@
         }
       },
       handleOptionClick(value) {
-        this.active = !this.active;
-        this.innerValue = value;
-        this.$emit('input', value);
+        if (this.multiple) {
+          this.innerValue =  this.innerValue || [];
+          if (this.innerValue.includes(value)) {
+            const index = this.innerValue.indexOf(value);
+            this.innerValue.splice(index, 1);
+          } else {
+            this.innerValue.push(value);
+          }
+          this.$emit('input', this.innerValue);
+        } else {
+          this.active = !this.active;
+          this.innerValue = value;
+          this.$emit('input', this.innerValue);
+        }
       }
     }
   }
 </script>
 
 <style scoped>
-  .button {
-    min-width: 12rem;
-    justify-content: normal;
+  span.icon {
   }
 
-  .icon[icon] {
-    position: absolute;
-    right: 1rem;
+  input.input {
+    z-index: 1;
+    width: 12rem;
+    cursor: pointer;
+    transition: all .3s;
+    padding: 0 15px;
   }
 </style>

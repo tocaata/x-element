@@ -8,7 +8,7 @@
     <XRadio border v-model="myData" label="2">你也好</XRadio>
     <br/>
     <XInputNumber v-model="step" name="step" :min="-12" :max="15" :step="1" style="margin-top: 10px"></XInputNumber>
-    <XSelect style="margin-top: 10px" v-model="selectData">
+    <XSelect style="margin-top: 10px" v-model="selectData" placeholder="请选择" clearable multiple>
       <XOption v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
       </XOption>
     </XSelect>

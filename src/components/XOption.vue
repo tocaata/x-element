@@ -1,6 +1,9 @@
 <template>
-  <li class="dropdown-item" :class="{ 'option-highlight': $parent.innerValue === value }" ref="the" :value="value" @click="handleClick">
-    <span>{{label}}</span>
+  <li class="dropdown-item"
+      :class="{ 'option-highlight': highlight }"
+      :value="value"
+      @click.prevent.stop="handleClick">
+    <span>{{ label }}</span>
   </li>
 </template>
 
@@ -14,9 +17,14 @@
     },
     methods: {
       handleClick(event) {
-        event.preventDefault();
-        event.stopPropagation();
+        // event.preventDefault();
+        // event.stopPropagation();
         this.$parent.$emit('click', this.value);
+      }
+    },
+    computed: {
+      highlight() {
+        return this.$parent.innerValue === this.value || (this.$parent.innerValue && this.$parent.innerValue.includes(this.value));
       }
     }
   }

@@ -1,0 +1,7 @@
+.multiple-select .option-highlight::after {
+    position: absolute;
+    right: 20px;
+    content: "✓";
+    font-size: 12px;
+    font-weight: 700;
+}
