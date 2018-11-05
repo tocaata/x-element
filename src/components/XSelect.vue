@@ -1,15 +1,14 @@
 <template>
   <div class="dropdown" :class="{ 'is-active': active, 'multiple-select': multiple }">
     <div class="dropdown-trigger">
-      <p class="control has-icons-right" ref="control">
+      <p class="control has-icons-right" ref="control" @click.stop="handleInputClick">
         <input ref="input" class="input"
                type="text"
                :value="innerValue"
                :placeholder="placeholder"
-               @click.stop="handleInputClick"
                readonly
         />
-        <span class="icon is-small is-right" @click.stop="handleDelete">
+        <span class="icon is-small is-right" @click="handleDelete" style="pointer-events: auto; cursor: pointer;">
           <i v-if="icon === 'down'" class="fas fa-angle-down"></i>
           <i v-else class="fas fa-times-circle" data-icon></i>
         </span>
@@ -42,17 +41,18 @@
     mounted() {
       this.$on('click', (value) => this.handleOptionClick(value));
       if (this.clearable) {
-        this.$refs.control.addEventListener('mouseover', (e) => { this.innerValue && (this.icon = 'delete'); });
-        this.$refs.control.addEventListener('mouseout', (e) => { this.icon = 'down'; });
+        this.$refs.control.addEventListener('mouseover', () => { this.innerValue && (this.icon = 'delete'); });
+        this.$refs.control.addEventListener('mouseout', () => { this.icon = 'down'; });
       }
       document.addEventListener('click', () => { this.active = false; });
     },
     methods: {
-      handleInputClick(event) {
+      handleInputClick() {
         this.active = !this.active;
       },
       handleDelete(e) {
         if (this.icon === 'delete') {
+          e.stopPropagation();
           this.innerValue = null;
           this.active = false;
         }
@@ -78,9 +78,6 @@
 </script>
 
 <style scoped>
-  span.icon {
-  }
-
   input.input {
     z-index: 1;
     width: 12rem;

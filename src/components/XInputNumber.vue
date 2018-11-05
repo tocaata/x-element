@@ -2,7 +2,7 @@
   <div class="columns is-centered">
     <div class="field has-addons" data-container>
       <div class="control">
-        <a class="button is-info" @click="minus" :disabled="disabled">
+        <a class="button" @click="minus" :disabled="disabled">
           -
         </a>
       </div>
@@ -16,7 +16,7 @@
         />
       </div>
       <div class="control">
-        <a class="button is-info" @click="plus" :disabled="disabled">
+        <a class="button" @click="plus" :disabled="disabled">
           +
         </a>
       </div>

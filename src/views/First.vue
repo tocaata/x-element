@@ -12,6 +12,8 @@
       <XOption v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
       </XOption>
     </XSelect>
+    <br/>
+    <XDatePicker style="margin: 1rem 1rem"></XDatePicker>
   </div>
 </template>
 
@@ -20,10 +22,11 @@
   import XInputNumber from '../components/XInputNumber';
   import XSelect from '../components/XSelect';
   import XOption from '../components/XOption';
+  import XDatePicker from '../components/XDatePicker';
 
   export default {
     name: 'First',
-    components: {XInputNumber, XRadio, XSelect, XOption},
+    components: {XInputNumber, XRadio, XSelect, XOption, XDatePicker},
     data() {
       return {
         myData: null,
