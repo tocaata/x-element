@@ -3,6 +3,7 @@
     <div>
       Step: {{step}}
       select: {{selectData}}
+      Date: {{date}}
     </div>
     <XRadio v-model="myData" label="1">你好</XRadio>
     <XRadio border v-model="myData" label="2">你也好</XRadio>
@@ -13,7 +14,10 @@
       </XOption>
     </XSelect>
     <br/>
-    <XDatePicker style="margin: 1rem 1rem"></XDatePicker>
+    <XDatePicker clearable v-model="date" style="margin: 1rem 1rem"></XDatePicker>
+    <XTable :data="students">
+      <XTableColumn prop="name"></XTableColumn>
+    </XTable>
   </div>
 </template>
 
@@ -23,10 +27,12 @@
   import XSelect from '../components/XSelect';
   import XOption from '../components/XOption';
   import XDatePicker from '../components/XDatePicker';
+  import XTable from '../components/XTable';
+  import XTableColumn from '../components/XTableColumn';
 
   export default {
     name: 'First',
-    components: {XInputNumber, XRadio, XSelect, XOption, XDatePicker},
+    components: {XTableColumn, XInputNumber, XRadio, XSelect, XOption, XDatePicker},
     data() {
       return {
         myData: null,
@@ -47,7 +53,12 @@
         }, {
           value: '北京烤鸭',
           label: '北京烤鸭'
-        }]
+        }],
+        date: null,
+        students: [
+          { name: '王磊' },
+          { name: '张帆' }
+        ]
       }
     },
     watch: {

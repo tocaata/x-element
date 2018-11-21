@@ -38,6 +38,11 @@
         icon: 'down'
       };
     },
+    watch: {
+      innerValue(newValue) {
+        this.$emit('input', newValue);
+      }
+    },
     mounted() {
       this.$on('click', (value) => this.handleOptionClick(value));
       if (this.clearable) {
@@ -66,11 +71,9 @@
           } else {
             this.innerValue.push(value);
           }
-          this.$emit('input', this.innerValue);
         } else {
           this.active = !this.active;
           this.innerValue = value;
-          this.$emit('input', this.innerValue);
         }
       }
     }
