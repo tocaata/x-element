@@ -15,6 +15,9 @@
     </XSelect>
     <br/>
     <XDatePicker clearable v-model="date" style="margin: 1rem 1rem"></XDatePicker>
+    <x-movable v-model="sortableData">
+      <div slot-scope="scope" style="width: 100px; border: 1px solid red;">{{ scope.item.value }}</div>
+    </x-movable>
 
     <movable style="width: 500px">
       <p>
@@ -44,10 +47,11 @@
   import XTableColumn from '../components/XTableColumn';
   import LazyLoad from '../components/LazyLoad';
   import Movable from '../components/Movable';
+  import XMovable from '../components/XMovable';
 
   export default {
     name: 'First',
-    components: {XTable, XTableColumn, XInputNumber, XRadio, XSelect, XOption, XDatePicker, LazyLoad, Movable},
+    components: {XTable, XTableColumn, XInputNumber, XRadio, XSelect, XOption, XDatePicker, LazyLoad, Movable, XMovable},
     data() {
       return {
         myData: null,
@@ -73,6 +77,12 @@
         students: [
           { name: '王磊' },
           { name: '张帆' }
+        ],
+        sortableData: [
+          { key: 1, value: '1' },
+          { key: 2, value: '2' },
+          { key: 3, value: '3' },
+          { key: 4, value: '4' }
         ]
       }
     },
