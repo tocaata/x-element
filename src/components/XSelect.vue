@@ -82,7 +82,7 @@
 
 <style scoped>
   input.input {
-    z-index: 1;
+    z-index: 100;
     width: 12rem;
     cursor: pointer;
     transition: all .3s;

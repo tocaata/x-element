@@ -4,6 +4,7 @@
       Step: {{step}}
       select: {{selectData}}
       Date: {{date}}
+      SortList: {{ sortableData.map(x => x.value).join(',') }}
     </div>
     <XRadio v-model="myData" label="1">你好</XRadio>
     <XRadio border v-model="myData" label="2">你也好</XRadio>
@@ -16,7 +17,7 @@
     <br/>
     <XDatePicker clearable v-model="date" style="margin: 1rem 1rem"></XDatePicker>
     <x-movable v-model="sortableData">
-      <div slot-scope="scope" style="width: 100px; border: 1px solid red;">{{ scope.item.value }}</div>
+      <div class="movable-box" slot-scope="scope" style="width: 200px; ">{{ scope.item.value }}</div>
     </x-movable>
 
     <movable style="width: 500px">
@@ -105,5 +106,14 @@
   }
 
   .middle-div {
+  }
+
+  .movable-box {
+    margin-bottom: -1px;
+    /*border-radius: 3px;*/
+    box-shadow: 0 2px 3px rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.1);
+    color: #4a4a4a;
+    display: block;
+    padding: 0.25rem;
   }
 </style>
